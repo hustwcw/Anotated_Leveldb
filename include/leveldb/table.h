@@ -35,6 +35,7 @@ class Table {
   // for the duration of the returned table's lifetime.
   //
   // *file must remain live while this Table is in use.
+  // @wcw 将构造函数声明为私有的，使用静态方法创建类的对象，这算是工厂模式吗？
   static Status Open(const Options& options,
                      RandomAccessFile* file,
                      uint64_t file_size,
@@ -45,6 +46,7 @@ class Table {
   // Returns a new iterator over the table contents.
   // The result of NewIterator() is initially invalid (caller must
   // call one of the Seek methods on the iterator before using it).
+  // @wcw 为什么不把返回的iterator初始化为第一个元素，而是需要由使用者来初始化迭代器？
   Iterator* NewIterator(const ReadOptions&) const;
 
   // Given a key, return an approximate byte offset in the file where
@@ -59,6 +61,8 @@ class Table {
   struct Rep;
   Rep* rep_;
 
+  // @wcw 为什么不实用构造函数的初始化列表初始化rep_？而在函数直接赋值。
+  // 是因为struct Rep只有赋值操作符重载而没有拷贝构造函数吗？
   explicit Table(Rep* rep) { rep_ = rep; }
   static Iterator* BlockReader(void*, const ReadOptions&, const Slice&);
 

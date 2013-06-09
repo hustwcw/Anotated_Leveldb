@@ -45,6 +45,7 @@ class InternalKey;
 // Value types encoded as the last component of internal keys.
 // DO NOT CHANGE THESE ENUM VALUES: they are embedded in the on-disk
 // data structures.
+// @wcw 这些枚举常量的值是保存到磁盘数据结构中的，所以是不能修改的。
 enum ValueType {
   kTypeDeletion = 0x0,
   kTypeValue = 0x1
@@ -61,6 +62,7 @@ typedef uint64_t SequenceNumber;
 
 // We leave eight bits empty at the bottom so a type and sequence#
 // can be packed together into 64-bits.
+// @wcw 序列号的第一个字节用来表示数据类型，后面7个字节是表示序列号
 static const SequenceNumber kMaxSequenceNumber =
     ((0x1ull << 56) - 1);
 
@@ -76,6 +78,7 @@ struct ParsedInternalKey {
 };
 
 // Return the length of the encoding of "key".
+// @wcw 为什么不是ParsedInternalKey的成员函数
 inline size_t InternalKeyEncodingLength(const ParsedInternalKey& key) {
   return key.user_key.size() + 8;
 }

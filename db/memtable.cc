@@ -10,7 +10,7 @@
 #include "util/coding.h"
 
 namespace leveldb {
-
+// 静态函数，只能在本源文件中使用，其他源文件中可定义同名静态函数
 static Slice GetLengthPrefixedSlice(const char* data) {
   uint32_t len;
   const char* p = data;
@@ -18,6 +18,7 @@ static Slice GetLengthPrefixedSlice(const char* data) {
   return Slice(p, len);
 }
 
+// 构造的时候计数器refs_初始化为0
 MemTable::MemTable(const InternalKeyComparator& cmp)
     : comparator_(cmp),
       refs_(0),
@@ -79,6 +80,7 @@ Iterator* MemTable::NewIterator() {
   return new MemTableIterator(&table_);
 }
 
+// 在MemTable的底层SkipList中插入一条entry
 void MemTable::Add(SequenceNumber s, ValueType type,
                    const Slice& key,
                    const Slice& value) {

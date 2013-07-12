@@ -79,7 +79,7 @@ class MemTable {
   KeyComparator comparator_;
   int refs_;
   Arena arena_;
-  Table table_;
+  Table table_; // table_需要comparator_和arean_来初始化
 
   // No copying allowed
   MemTable(const MemTable&);

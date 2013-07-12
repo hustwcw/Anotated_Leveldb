@@ -120,8 +120,10 @@ bool InternalFilterPolicy::KeyMayMatch(const Slice& key, const Slice& f) const {
 
 LookupKey::LookupKey(const Slice& user_key, SequenceNumber s) {
   size_t usize = user_key.size();
+  // @wcw 加12应该就可以了，为什么要加13？
   size_t needed = usize + 13;  // A conservative estimate
   char* dst;
+  // 对于小数据不需要分配内存，大数据需要分配内存，并浪费掉200字节的内存
   if (needed <= sizeof(space_)) {
     dst = space_;
   } else {

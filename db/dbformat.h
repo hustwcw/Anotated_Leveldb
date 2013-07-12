@@ -185,6 +185,8 @@ inline bool ParseInternalKey(const Slice& internal_key,
   return (c <= static_cast<unsigned char>(kTypeValue));
 }
 
+// LookupKey其实就是memtable_key；和SkipList中的数据格式的区别是没有value和value_len,
+// 他提供了从中解析出internal_key和user_key的方法
 // A helper class useful for DBImpl::Get()
 class LookupKey {
  public:

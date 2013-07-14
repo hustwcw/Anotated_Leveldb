@@ -108,6 +108,7 @@ inline ValueType ExtractValueType(const Slice& internal_key) {
   return static_cast<ValueType>(c);
 }
 
+// 使用了装饰器模式
 // A comparator for internal keys that uses a specified comparator for
 // the user key portion and breaks ties by decreasing sequence number.
 class InternalKeyComparator : public Comparator {
@@ -127,6 +128,7 @@ class InternalKeyComparator : public Comparator {
   int Compare(const InternalKey& a, const InternalKey& b) const;
 };
 
+// 使用了装饰器模式
 // Filter policy wrapper that converts from internal keys to user keys
 class InternalFilterPolicy : public FilterPolicy {
  private:

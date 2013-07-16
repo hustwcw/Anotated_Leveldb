@@ -79,6 +79,7 @@ struct DBImpl::CompactionState {
   }
 };
 
+// 控制用户提供的值在minvalue和maxvalue之间
 // Fix user-supplied options to be reasonable
 template <class T,class V>
 static void ClipToRange(T* ptr, V minvalue, V maxvalue) {

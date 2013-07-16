@@ -59,6 +59,7 @@ class Repairer {
 
   ~Repairer() {
     delete table_cache_;
+    // 如果info_log是在SanitizeOptions新创建的，则需要delete掉
     if (owns_info_log_) {
       delete options_.info_log;
     }

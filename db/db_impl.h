@@ -60,6 +60,8 @@ class DBImpl : public DB {
   int64_t TEST_MaxNextLevelOverlappingBytes();
 
  private:
+  // @wcw 既然已经是DB的派生类了，为什么还要把DB声明为自己的友元类？
+  // 这样设计有什么好处呢？
   friend class DB;
   struct CompactionState;
   struct Writer;
@@ -190,8 +192,10 @@ class DBImpl : public DB {
   }
 };
 
+// 清理Options，class DBImpl和class Repairer的构造函数使用到
 // Sanitize db options.  The caller should delete result.info_log if
 // it is not equal to src.info_log.
+// @wcw !Not Only the info_log, but also the block_cache
 extern Options SanitizeOptions(const std::string& db,
                                const InternalKeyComparator* icmp,
                                const InternalFilterPolicy* ipolicy,
